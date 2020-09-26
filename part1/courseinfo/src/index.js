@@ -2,10 +2,30 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 console.log('blaaä');
 
-const Header = () => {
+const Header = (props) => {
   return (
     <div>
-      
+      <h1>
+        {props.course} 
+      </h1>
+    </div>
+  )
+}
+
+const Content = (props) => {
+  return (
+    <div>
+      <p>
+        {props.subject} {props.ne}
+      </p>
+    </div>
+  )
+}
+
+const Total = (props) => {
+  return (
+    <div>
+      <p>Number of exercises {props.ne1 + props.ne2 + props.ne3}</p>
     </div>
   )
 }
@@ -21,17 +41,11 @@ const App = () => {
 
   return (
     <div>
-      <h1>{course}</h1>
-      <p>
-        {part1} {exercises1}
-      </p>
-      <p>
-        {part2} {exercises2}
-      </p>
-      <p>
-        {part3} {exercises3}
-      </p>
-      <p>Number of exercises {exercises1 + exercises2 + exercises3}</p>
+      <Header course = {course}/>
+      <Content subject = {part1} ne = {exercises1} />
+      <Content subject = {part2} ne = {exercises2} />
+      <Content subject = {part3} ne = {exercises3} />
+      <Total ne1 = {exercises1} ne2 = {exercises2} ne3 = {exercises3} />
     </div>
   )
 }
