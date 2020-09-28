@@ -29,24 +29,23 @@ const Part = (props) => {
 
 const Content = (props) => {
   console.log('Content props ', props)
-  const part1 = props.part1
-  console.log('Content props part1 ', props.part1)
-  const part2 = props.part2
-  const part3 = props.part3
+  const parts = props.parts
+  console.log('Content props parts ', props.parts)
+
   return (
     <div>
-       < Part name = {part1.name} ne = {part1.ne}/>
-       < Part name = {part2.name} ne = {part2.ne}/>
-       < Part name = {part3.name} ne = {part3.ne}/>
+       < Part name = {parts[0].name} ne = {parts[0].ne}/>
+       < Part name = {parts[1].name} ne = {parts[1].ne}/>
+       < Part name = {parts[2].name} ne = {parts[2].ne}/>
     </div>
   )
 }
 
 function Total(props) {
   console.log('Total props', props)
-  const ne1 = props.part1.ne  
-  const ne2 = props.part2.ne
-  const ne3 = props.part3.ne
+  const ne1 = props.parts[0].ne  
+  const ne2 = props.parts[1].ne
+  const ne3 = props.parts[2].ne
   const totalE = ne1 + ne2 + ne3
   console.log('Total ne1', ne1)
   console.log('TotalE ', totalE)
@@ -59,32 +58,29 @@ function Total(props) {
 
 const App = () => {
   const course = 'Half Stack application development'
-  const part1 = {
-    name: 'Fundamentals of React', 
-    ne: 10,
-  }
-  const part2 = {
-    name: 'Using props to pass data',
-    ne: 7 ,
-  }
-  const part3 = {
-    name: 'State of a component',
-    ne: 14,
-  }
+  const parts = [
+    {
+      name: 'Fundamentals of React', 
+      ne: 10,
+    },
+    {
+      name: 'Using props to pass data',
+      ne: 7 ,
+    },
+    {
+      name: 'State of a component',
+      ne: 14,
+    },
+  ]
 
   return (
     <div>
       <Header course = {course}/>
       <Content 
-      part1 = {part1}
-      part2 = {part2}
-      part3 = {part3}
-
+        parts = {parts}
       />    
       <Total         
-      part1 = {part1}
-      part2 = {part2}
-      part3 = {part3}
+        parts = {parts}
       />
     </div>
   )
