@@ -2,21 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 console.log('blaa');
 
-const Header = (props) => {
-  console.log('header props', props)
+const Header = ({name}) => { 
   return (
     <div>
       <h1>
-        {props.course.name} 
+        {name} 
       </h1>
     </div>
   )
 }
 
-const Part = (props) => {
-  console.log('part props ', props)
-  const name = props.name
-  const ne = props.ne
+const Part = ({name, ne}) => {
   console.log('part ne ', ne)
   return (
     <div>
@@ -27,11 +23,7 @@ const Part = (props) => {
   )
 }
 
-const Content = (props) => {
-  console.log('Content props ', props)
-  const parts = props.parts
-  console.log('Content props parts ', props.parts)
-
+const Content = ({parts}) => {
   return (
     <div>
        < Part name = {parts[0].name} ne = {parts[0].ne}/>
@@ -84,6 +76,7 @@ const App = () => {
       <Total         
         parts = {course.parts}
       />
+
     </div>
   )
 }
