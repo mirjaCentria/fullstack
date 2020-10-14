@@ -5,6 +5,9 @@ const Statistics = (props) => {
   const good = props.good
   const neutral = props.neutral
   const bad = props.bad
+  const allfb = good + neutral + bad
+
+
 
   const sumAll = () => {    
     return good + neutral + bad
@@ -20,16 +23,21 @@ const Statistics = (props) => {
     else return 100*good/sumAll()
   }
 
-  return (
-    <div>  
-      <h1>statistics</h1>  
-      
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {sumAll()}</p>
-      <p>average {average()}</p>
-      <p>positive {percent()} %</p>
+    console.log('nofb ' + sumAll)
+    return (
+    <div>
+      {allfb === 0 ? (
+        <span className="nofb">No feedback given</span>
+      ) : (
+        <span className="allfb">
+          <p>good {good}</p>
+          <p>neutral {neutral}</p>
+          <p>bad {bad}</p>
+          <p>all {sumAll()}</p>
+          <p>average {average()}</p>
+          <p>positive {percent()} %</p>
+        </span>
+      )}
     </div>
   )
 }
@@ -51,9 +59,9 @@ const App = () => {
       <button onClick={() => setBad(bad + 1)}>bad</button>
       </p>
       
-      <Statistics good= {good} bad= {bad} neutral= {neutral}/>
+      <h1>statistics</h1>              
 
-      <h1>statistics</h1>  
+      <Statistics good= {good} bad= {bad} neutral= {neutral}/>
     </div>
   )
 }
