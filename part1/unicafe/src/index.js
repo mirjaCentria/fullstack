@@ -6,8 +6,7 @@ const Statistics = (props) => {
   const neutral = props.neutral
   const bad = props.bad
   const allfb = good + neutral + bad
-
-
+  
 
   const sumAll = () => {    
     return good + neutral + bad
