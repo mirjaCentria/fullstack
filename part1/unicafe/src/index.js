@@ -41,13 +41,23 @@ const Statistics = (props) => {
       ) : (
         <span className="allfb">
 
-          <p><Statistic text = 'good ' value={good}/></p> 
-          <p><Statistic text = 'neutral ' value={neutral}/></p> 
-          <p><Statistic text = 'bad ' value={bad}/></p> 
-          <p><Statistic text = 'all ' value={sumAll()}/></p> 
-          <p><Statistic text = 'average ' value={average()}/></p> 
-          <p><Statistic text = 'positive ' value={percent()}/></p> 
-          
+          <table>
+            <thead >
+              <tr>
+              <td><Statistic text='good'/></td><td> <Statistic value={good}/></td>
+              </tr><tr>
+              <td><Statistic text="neutral " /></td><td> <Statistic value={neutral} /></td>
+              </tr><tr>
+              <td><Statistic text="bad " /></td><td> <Statistic value={bad} /></td>
+              </tr><tr>
+              <td><Statistic text="all " /></td><td> <Statistic value={sumAll()} /></td>
+              </tr><tr>
+              <td><Statistic text="average " /></td><td> <Statistic value={average()} /></td>
+              </tr><tr>
+              <td><Statistic text="positive " /></td><td> <Statistic value={percent() + ' %'} /></td>
+              </tr>
+            </thead>
+          </table>            
         </span>
       )}
     </div>
@@ -55,8 +65,7 @@ const Statistics = (props) => {
 }
 
 const Button = (props) => (
-  <button onClick={props.handleClick}>{props.text}
-    
+  <button onClick={props.handleClick}>{props.text}    
   </button>
 )
 
