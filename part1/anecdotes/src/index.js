@@ -6,8 +6,7 @@ const App = (props) => {
   const [votes, setVotes] = useState(0)
   const anecdotes = props.anecdotes
   const lArray = anecdotes.length
-  const newvote = anecdotes[selected].vote +1
- 
+  const newvote = anecdotes[selected].vote +1 
   console.log(props)
   console.log(newvote)
 
@@ -18,6 +17,7 @@ const App = (props) => {
   const newVotes = () =>{        
     anecdotes[selected].vote = newvote
     setVotes(anecdotes)
+    damnVotes[selected] = newvote
     ReactDOM.render(
       <App anecdotes={anecdotes} />,
       document.getElementById('root')
@@ -29,6 +29,19 @@ const App = (props) => {
     )
   }
 
+  const noVotes = { name: 'No votes given yet', vote: 0 }
+
+  const best = () => {
+    const maxVotes = Math.max(damnVotes)
+    console.log(maxVotes) 
+    if(maxVotes === 0) return ({noVotes})
+    else 
+    anecdotes.forEach(item => {
+      if(item.vote === maxVotes) return item  
+      console.log(item)    
+    });    
+  }
+
   const Button = (props) => (
     <button onClick={props.handleClick}>{props.text}    
     </button>
@@ -36,19 +49,23 @@ const App = (props) => {
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected].name}
       <p>has {anecdotes[selected].vote} votes</p>
       <p> 
       <Button handleClick={newVotes} text= 'vote' />
       <Button handleClick={newSelected} text= 'next anecdote' />
      </p>
-    
+     <h1>Anecdote with the most votes</h1>
+     {anecdotes[1].name}
+     <p>has {anecdotes[1].vote} votes</p>
+    {best()}
     
     </div>
   )
 }
 
-
+const damnVotes = [0, 0, 0, 0, 0, 0]
 
 const anecdotes = [
   { name: 'If it hurts, do it more often', vote: 0 },
