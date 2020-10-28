@@ -28,27 +28,23 @@ const Content = ({parts}) => {
   console.log('content ', parts)
   return (
     <div>
-       < Part name = {parts[0].name} ne = {parts[0].ne}/>
-       < Part name = {parts[1].name} ne = {parts[1].ne}/>
-       < Part name = {parts[2].name} ne = {parts[2].ne}/>
+        {parts.map(part => 
+          <Part key={part.id} name = {part.name} ne = {part.ne} />
+        )}
+      </div>
+  )
+}
+
+const Course = ({course}) => {
+  console.log('course ', course)
+  return (
+    <div>
+       < Header name = {course.name} />
+       < Content parts = {course.parts}/>
     </div>
   )
 }
 
-function Total(props) {
-  console.log('Total props', props)
-  const ne1 = props.parts[0].ne  
-  const ne2 = props.parts[1].ne
-  const ne3 = props.parts[2].ne
-  const totalE = ne1 + ne2 + ne3
-  console.log('Total ne1', ne1)
-  console.log('TotalE ', totalE)
-  return (
-    <div>
-      <p>Number of exercises {totalE} </p>
-    </div>
-  );
-}
 
 const App = () => {
   const course = {
@@ -57,14 +53,17 @@ const App = () => {
       {
         name: 'Fundamentals of React', 
         ne: 10,
+        id: 1,
       },
       {
         name: 'Using props to pass data',
         ne: 7 ,
+        id: 2,
       },
       {
         name: 'State of a component',
         ne: 14,
+        id: 3,
       },
     ]
   }
@@ -75,11 +74,7 @@ const App = () => {
       <Content 
         parts = {course.parts}
       />    
-      <Total         
-        parts = {course.parts}
-      />
-
-    </div>
+     </div>
   )
 }
 
