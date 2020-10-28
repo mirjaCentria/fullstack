@@ -41,10 +41,22 @@ const Course = ({course}) => {
     <div>
        < Header name = {course.name} />
        < Content parts = {course.parts}/>
+       <Total         
+        parts = {course.parts}
+      />
     </div>
   )
 }
 
+const Total  = ({parts}) => {
+    const totalE = parts.reduce((totalE, part) => totalE + part.ne, 0);
+  console.log('Total ', totalE)
+  return (
+    <div>
+     <p>Total of {totalE} exercises</p>
+    </div>
+  )
+}
 
 const App = () => {
   const course = {
@@ -74,6 +86,9 @@ const App = () => {
       <Content 
         parts = {course.parts}
       />    
+      <Total 
+       parts = {course.parts}
+      />
      </div>
   )
 }
