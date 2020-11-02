@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import ReactDOM from 'react-dom';
-import reportWebVitals from './reportWebVitals';
+//import ReactDOM from 'react-dom';
+//import reportWebVitals from './reportWebVitals';
 //import { Text, TextInput, View } from 'react-native';
 
 
@@ -11,18 +11,27 @@ const App = () => {
       { name: 'Arto Hellas' }
     ]) 
   const [ newName, setNewName ] = useState('')
-  const lArray = persons.length
+  //const lArray = persons.length
 
 
   const addPerson = (event) => {
     event.preventDefault()
-    console.log('blaa')
+  
     const newPerson = { 
       name: newName, 
     }
 
-    setPersons(persons.concat(newPerson))
-    setNewName('')
+    if(persons.some(person => person.name === newName)) 
+    {
+        window.alert('${newName} is already added to phonebook') 
+        console.log('button clicked alert', event.target)
+    }else
+    {
+        setPersons(persons.concat(newPerson))
+        setNewName('')
+        console.log('button clicked', event.target)
+    }
+
   }
 
   const handlePersonChange = (event) => {
@@ -44,16 +53,11 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      <div>debug: {newName}</div>
-        <div>
-        <ul>
-          {persons.map(person => 
-          <li key={person.name}>
+      {persons.map(person => 
+          <div key={person.name}>
             {person.name}
-            </li>
-          )}
-        </ul>
-      </div>
+        </div>
+      )}      
     </div>
   )
 }
