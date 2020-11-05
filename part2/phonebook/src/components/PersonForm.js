@@ -1,4 +1,4 @@
-mport React from 'react'
+import React from 'react';
 
 const PersonForm = ({addPerson,handleNameChange, handleNumberChange, name, nmber}) => {
     console.log('personform ', name, nmber)
