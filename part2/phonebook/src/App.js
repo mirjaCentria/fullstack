@@ -44,6 +44,31 @@ const App = () => {
     }
   }
 
+
+  /* handleDelete = (itemId) => {
+    // Whatever you want to do with that item
+    axios.delete("url", { params: { id: itemId } }).then(response => {
+      console.log(response);
+    });
+     */
+
+  const delPerson = (person) => {
+    console.log('delete ', person)
+    const del = window.confirm(`Do you really want to delete ${person.name}?`); 
+    if(del === true){         
+      const result = 
+      personService
+      .deleete(person.id)
+      .then(response => 
+        {
+          window.alert('$person.name is removed from phonebook') 
+          setPersons(persons.filter(newp => newp.id !== person.id))
+
+        })
+
+    }     
+  }
+
   const handleNameChange = (event) => {
     console.log(event.target.value)
     setNewName(event.target.value)
@@ -58,6 +83,9 @@ const App = () => {
     console.log(event.target.value)
     setNewFilter(event.target.value)    
   }
+
+
+  
 
   return (
     <div>

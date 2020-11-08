@@ -1,10 +1,11 @@
 import React from 'react';
 
-const Person = ({name, nmber}) => {
-    console.log('person  ', name, nmber)
+const Person = ({person, delPerson}) => {
+    console.log('person  ', person)
     return (
       <div>
-        {name}  {nmber}
+        {person.name}  {person.nmber}   
+        <button onClick={() => this.delPerson(person)}>Delete</button>
       </div>
     )
   }
