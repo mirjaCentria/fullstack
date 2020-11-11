@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import ShowPersons from './components/ShowPersons.js';
 import PersonForm from './components/PersonForm.js';
 import Filter from './components/Filter.js';
+import Notification from './components/Notification.js';
 import personService from './services/persons'
+
 
 const App = () => {
  
@@ -10,6 +12,12 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
+  const [ newMessage, setNewMessage] = useState('blaa')
+  
+  const mAdd = ' was added to phonebook '
+  const mDelete = ' was removed from phonebook ' 
+  const mChange = ' was changed '
+  let msg = ''
 
   useEffect(() => {
     console.log('effect')
@@ -17,18 +25,17 @@ const App = () => {
       .getAll()
       .then(initialPersons => {
         setPersons(initialPersons)
-      })
+      })     
     }, [])
+    
 
-
-  const addPerson = (event) => {
-    event.preventDefault()  
-    const newPerson = { 
-      name: newName, 
-      nmber: newNumber,
-      id: persons.length +1,
+    const addPerson = (event) => {
+      event.preventDefault()  
+      const newPerson = { 
+        name: newName, 
+        nmber: newNumber,
+        id: persons.length +1,
     }
-
     if(persons.some(person => person.name === newName)) 
     {
         window.alert('$newName is already added to phonebook') 
@@ -38,34 +45,44 @@ const App = () => {
         setPersons(persons.concat(newPerson))
         setNewName('')
         setNewNumber('')
-
+        console.log('Add', newName, mAdd)
         personService
         .create(newPerson)
+        .then(result =>            
+          {
+            setPersons(persons.concat(result))
+            console.log('result ',result)
+            const rname = result.name + mAdd
+            console.log('rname ',rname)
+            setNewMessage(rname)
+            console.log('newMsg ',newMessage)
+            setTimeout(() => {
+              setNewMessage(null)
+            }, 5000)
+          } )        
+ 
     }
   }
 
-
-  /* handleDelete = (itemId) => {
-    // Whatever you want to do with that item
-    axios.delete("url", { params: { id: itemId } }).then(response => {
-      console.log(response);
-    });
-     */
-
-  const delPerson = (person) => {
+  const delPerson = (id) => {
+    const person = persons.find(x => x.id === id)
     console.log('delete ', person)
-    const del = window.confirm(`Do you really want to delete ${person.name}?`); 
-    if(del === true){         
-      const result = 
+    if( window.confirm(`Do you really want to delete ${person.name}?`)) {         
+
       personService
-      .deleete(person.id)
-      .then(response => 
+      .deleete(person)
+      .then(() => 
         {
-          window.alert('$person.name is removed from phonebook') 
-          setPersons(persons.filter(newp => newp.id !== person.id))
-
+          //window.alert('$person.name is removed from phonebook') 
+          const rname = person.name + mDelete
+          console.log('rname ',rname)
+          setNewMessage(rname)
+          console.log('newMsg ',newMessage)
+          setTimeout(() => {
+            setNewMessage(null)
+          }, 5000)
+          setPersons(persons.filter(x => id !== x.id))
         })
-
     }     
   }
 
@@ -80,19 +97,20 @@ const App = () => {
   }
 
   const handleFilterChange = (event) => {
-    console.log(event.target.value)
+    console.log('filter ',event.target.value)
     setNewFilter(event.target.value)    
   }
-
-
-  
 
   return (
     <div>
       <h2>Phonebook</h2>
       
+      <Notification 
+        message = {newMessage}
+      />
+
       <Filter 
-        value={newFilter} 
+        //value={newFilter} 
         handleFilterChange={handleFilterChange} />
 
       <h3>Add new person</h3>
@@ -109,6 +127,7 @@ const App = () => {
       <ShowPersons 
         persons = {persons} 
         newFilter ={newFilter}
+        delPerson = {delPerson}
       />   
     </div>  
   )

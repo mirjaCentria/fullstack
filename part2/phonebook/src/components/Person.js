@@ -5,7 +5,7 @@ const Person = ({person, delPerson}) => {
     return (
       <div>
         {person.name}  {person.nmber}   
-        <button onClick={() => this.delPerson(person)}>Delete</button>
+        <button onClick={delPerson}>Delete</button>
       </div>
     )
   }

@@ -17,8 +17,8 @@ const getAll = () => {
     return request.then(response => response.data)
   }
 
-  const deleete = (id) => {
-    const request = axios.delete(`${baseUrl}/${id}`)
+  const deleete = (id, newPerson) => {
+    const request = axios.delete(`${baseUrl}/${id}`, newPerson)
     return request.then(response => response.data)
   }
 

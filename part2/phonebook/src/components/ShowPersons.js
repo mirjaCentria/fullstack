@@ -2,15 +2,16 @@ import React from 'react';
 import Person from './Person.js';
 
 const ShowPersons = ({persons, newFilter, delPerson}) => {
-    console.log('persons ', persons, newFilter)
+    console.log('showbbpersons ', persons)
     return (
       <div>
-        {persons.filter(person => 
-            (person.name||'').toLowerCase().includes((newFilter||'').toLowerCase())).map(person =>
-              <div>
-              {person.name}  {person.nmber}   
-              <button onClick={() => delPerson(person)}>Delete</button>
-            </div>
+        {persons.filter(prson => 
+            (prson.name||'').toLowerCase().includes((newFilter||'').toLowerCase())).map(prson =>
+              <Person key={prson.name} 
+              name = {prson.name} 
+              nmber = {prson.number}  
+              delPerson = {delPerson}
+            />
             )}     
       </div>  
     )
