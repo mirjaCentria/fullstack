@@ -17,9 +17,9 @@ const getAll = () => {
     return request.then(response => response.data)
   }
 
-  const deleete = (id, newPerson) => {
-    const request = axios.delete(`${baseUrl}/${id}`, newPerson)
+  const deleete = (id) => {
+    const request = axios.delete(`${baseUrl}/${id}`)
     return request.then(response => response.data)
   }
 
-export default {   getAll,   create, update     }
+export default {   getAll,   create, update, deleete     }

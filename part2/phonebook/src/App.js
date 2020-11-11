@@ -4,7 +4,7 @@ import PersonForm from './components/PersonForm.js';
 import Filter from './components/Filter.js';
 import Notification from './components/Notification.js';
 import personService from './services/persons'
-
+import './App.css'
 
 const App = () => {
  
@@ -12,12 +12,12 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
-  const [ newMessage, setNewMessage] = useState('blaa')
+  const [ newMessage, setNewMessage] = useState('')
   
   const mAdd = ' was added to phonebook '
   const mDelete = ' was removed from phonebook ' 
-  const mChange = ' was changed '
-  let msg = ''
+ // const mChange = ' was changed '
+  //let msg = ''
 
   useEffect(() => {
     console.log('effect')
@@ -33,7 +33,7 @@ const App = () => {
       event.preventDefault()  
       const newPerson = { 
         name: newName, 
-        nmber: newNumber,
+        number: newNumber,
         id: persons.length +1,
     }
     if(persons.some(person => person.name === newName)) 
@@ -42,9 +42,6 @@ const App = () => {
         console.log('button clicked alert', event.target)
     }else
     {
-        setPersons(persons.concat(newPerson))
-        setNewName('')
-        setNewNumber('')
         console.log('Add', newName, mAdd)
         personService
         .create(newPerson)
@@ -60,17 +57,19 @@ const App = () => {
               setNewMessage(null)
             }, 5000)
           } )        
+          setNewName('')
+          setNewNumber('')
  
     }
   }
 
   const delPerson = (id) => {
     const person = persons.find(x => x.id === id)
-    console.log('delete ', person)
+    console.log('delete ', id, person)
     if( window.confirm(`Do you really want to delete ${person.name}?`)) {         
 
       personService
-      .deleete(person)
+      .deleete(id)
       .then(() => 
         {
           //window.alert('$person.name is removed from phonebook') 
@@ -97,6 +96,7 @@ const App = () => {
   }
 
   const handleFilterChange = (event) => {
+    event.preventDefault()  
     console.log('filter ',event.target.value)
     setNewFilter(event.target.value)    
   }
@@ -120,7 +120,7 @@ const App = () => {
         handleNameChange = {handleNameChange}
         handeNumberChange = {handleNumberChange}
         name = {newName}
-        nmber = {newNumber}
+        number = {newNumber}
       />
 
       <h3>Numbers</h3>  

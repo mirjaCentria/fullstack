@@ -13,6 +13,18 @@
   }
 }
 
+
+.error {
+  color: green;
+  background: lightgrey;
+  font-size: 20px;
+  border-style: solid;
+  border-width: 5px;
+  border-color: green;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  }  
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
