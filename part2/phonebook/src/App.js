@@ -13,7 +13,7 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
   const [ newMessage, setNewMessage] = useState('')
-  
+
   const mAdd = ' was added to phonebook '
   const mDelete = ' was removed from phonebook ' 
  // const mChange = ' was changed '
@@ -23,10 +23,10 @@ const App = () => {
     console.log('effect')
     personService
       .getAll()
-      .then(initialPersons => {
-        setPersons(initialPersons)
+      .then(result => {
+        setPersons(result)    
       })     
-    }, [])
+    })
     
 
     const addPerson = (event) => {
@@ -43,11 +43,14 @@ const App = () => {
     }else
     {
         console.log('Add', newName, mAdd)
+        setPersons(persons.concat(newPerson))
+        setNewName('')
+        setNewNumber('')
         personService
         .create(newPerson)
         .then(result =>            
           {
-            setPersons(persons.concat(result))
+           // setPersons(persons.concat(result))
             console.log('result ',result)
             const rname = result.name + mAdd
             console.log('rname ',rname)
@@ -57,8 +60,8 @@ const App = () => {
               setNewMessage(null)
             }, 5000)
           } )        
-          setNewName('')
-          setNewNumber('')
+         // setNewName('')
+        //  setNewNumber('')
  
     }
   }
@@ -110,7 +113,7 @@ const App = () => {
       />
 
       <Filter 
-        //value={newFilter} 
+        value={newFilter} 
         handleFilterChange={handleFilterChange} />
 
       <h3>Add new person</h3>

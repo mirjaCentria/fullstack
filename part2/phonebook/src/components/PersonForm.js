@@ -1,14 +1,14 @@
 import React from 'react';
 
-const PersonForm = ({addPerson,handleNameChange, handleNumberChange, name, number}) => {
-    console.log('personform ', name, number)
+const PersonForm = ({addPerson,handleNameChange, handleNumberChange, pname, pnumber}) => {
+    console.log('personform ', pname, pnumber)
     return (
       <form onSubmit={addPerson} >
         <div>
           name:        
           <input   
               name = 'pname'
-              value = {name}          
+              value = {pname}          
               onChange={handleNameChange}
           />
         </div>
@@ -16,7 +16,7 @@ const PersonForm = ({addPerson,handleNameChange, handleNumberChange, name, numbe
           number: 
           <input 
               name = 'pnumber'
-              value = {number} 
+              value = {pnumber} 
               onChange={handleNumberChange}
           />
         </div>
