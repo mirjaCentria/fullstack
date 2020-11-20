@@ -26,6 +26,7 @@ const App = () => {
       .then(result => {
         setPersons(result)    
       })     
+      console.log({persons})
     })
     
 

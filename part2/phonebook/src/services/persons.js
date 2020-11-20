@@ -1,9 +1,12 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/App/persons'
+//const baseUrl = 'https://phonebookmirja.herokuapp.com/App/persons' 
+//const baseUrl = 'http://localhost:3001/App/persons'
+const baseUrl = '/App/persons'
 
 
 const getAll = () => {
     const request = axios.get(baseUrl)
+    console.log({baseUrl})
     return request.then(response => response.data)
   }
   
