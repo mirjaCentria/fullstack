@@ -18,14 +18,14 @@ const App = () => {
       .then(initialPersons => {
         setPersons(initialPersons)
       })
-    }, [])
+    },[])
 
 
   const addPerson = (event) => {
     event.preventDefault()  
     const newPerson = { 
       name: newName, 
-      nmber: newNumber,
+      number: newNumber,
       id: persons.length +1,
     }
 
@@ -56,15 +56,9 @@ const App = () => {
     console.log('delete ', person)
     const del = window.confirm(`Do you really want to delete ${person.name}?`); 
     if(del === true){         
-      const result = 
       personService
-      .deleete(person.id)
-      .then(response => 
-        {
-          window.alert('$person.name is removed from phonebook') 
-          setPersons(persons.filter(newp => newp.id !== person.id))
-
-        })
+      .remove(person.id)
+      setPersons(persons.filter(newp => newp.id !== person.id))
 
     }     
   }
@@ -100,15 +94,17 @@ const App = () => {
       <PersonForm 
         addPerson = {addPerson}
         handleNameChange = {handleNameChange}
-        handeNumberChange = {handleNumberChange}
+        handleNumberChange = {handleNumberChange}
         name = {newName}
-        nmber = {newNumber}
+        number = {newNumber}
       />
 
       <h3>Numbers</h3>  
       <ShowPersons 
         persons = {persons} 
         newFilter ={newFilter}
+        delPerson = {delPerson}
+
       />   
     </div>  
   )
