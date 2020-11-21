@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import ShowPersons from './components/ShowPersons.js';
 import PersonForm from './components/PersonForm.js';
 import Filter from './components/Filter.js';
+import Notification from './components/Notification.js';
 import personService from './services/persons'
+import './App.css'
 
 const App = () => {
  
@@ -10,6 +12,13 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
+  const [ newMessage, setNewMessage] = useState(null)
+
+  const newPerson = { 
+    name: newName, 
+    number: newNumber,
+    id: persons.length +1,
+  }
 
   useEffect(() => {
     console.log('effect')
@@ -20,14 +29,8 @@ const App = () => {
       })
     },[])
 
-
   const addPerson = (event) => {
     event.preventDefault()  
-    const newPerson = { 
-      name: newName, 
-      number: newNumber,
-      id: persons.length +1,
-    }
 
     if(persons.some(person => person.name === newName)) 
     {
@@ -35,22 +38,21 @@ const App = () => {
         console.log('button clicked alert', event.target)
     }else
     {
+        console.log('Add', newName)
         setPersons(persons.concat(newPerson))
         setNewName('')
         setNewNumber('')
-
         personService
         .create(newPerson)
+
+        setNewMessage(
+          `Person '${newPerson.name}' was added to phonebook`
+        )
+        setTimeout(() => {
+          setNewMessage(null)
+        }, 5000)
     }
   }
-
-
-  /* handleDelete = (itemId) => {
-    // Whatever you want to do with that item
-    axios.delete("url", { params: { id: itemId } }).then(response => {
-      console.log(response);
-    });
-     */
 
   const delPerson = (person) => {
     console.log('delete ', person)
@@ -59,7 +61,12 @@ const App = () => {
       personService
       .remove(person.id)
       setPersons(persons.filter(newp => newp.id !== person.id))
-
+      setNewMessage(
+        `Person '${person.name}' was removed from phonebook`
+      )
+      setTimeout(() => {
+        setNewMessage(null)
+      }, 5000)
     }     
   }
 
@@ -74,17 +81,19 @@ const App = () => {
   }
 
   const handleFilterChange = (event) => {
-    console.log(event.target.value)
+    event.preventDefault()  
+    console.log('filter ',event.target.value)
     setNewFilter(event.target.value)    
   }
-
-
-  
 
   return (
     <div>
       <h2>Phonebook</h2>
       
+      <Notification 
+        message = {newMessage}
+      />
+
       <Filter 
         value={newFilter} 
         handleFilterChange={handleFilterChange} />

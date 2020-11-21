@@ -3,7 +3,7 @@ import Person from './Person.js';
 import PersonForm from './PersonForm.js';
 
 const ShowPersons = ({persons, newFilter, delPerson}) => {
-    console.log('persons ', persons, newFilter)
+    console.log('showbbpersons ', persons)
     return (
       <div>
         {persons.filter(person => 
