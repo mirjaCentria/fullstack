@@ -12,80 +12,73 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
-  const [ newMessage, setNewMessage] = useState('')
+  const [ newMessage, setNewMessage] = useState(null)
 
-  const mAdd = ' was added to phonebook '
-  const mDelete = ' was removed from phonebook ' 
- // const mChange = ' was changed '
-  //let msg = ''
+  const newPerson = { 
+    name: newName, 
+    number: newNumber,
+    id: persons.length +1,
+  }
 
   useEffect(() => {
     console.log('effect')
     personService
       .getAll()
-      .then(result => {
-        setPersons(result)    
-      })     
-      console.log({persons})
-    })
-    
+      .then(initialPersons => {
+        setPersons(initialPersons)
+      })
+    },[])
 
-    const addPerson = (event) => {
-      event.preventDefault()  
-      const newPerson = { 
-        name: newName, 
-        number: newNumber,
-        id: persons.length +1,
+    const Notification = ({ message }) => {
+      if (message === null) {
+        return null
+      }
+    
+      return (
+        <div className="error">
+          {message}
+        </div>
+      )
     }
+
+  const addPerson = (event) => {
+    event.preventDefault()  
+
     if(persons.some(person => person.name === newName)) 
     {
         window.alert('$newName is already added to phonebook') 
         console.log('button clicked alert', event.target)
     }else
     {
-        console.log('Add', newName, mAdd)
+        console.log('Add', newName)
         setPersons(persons.concat(newPerson))
         setNewName('')
         setNewNumber('')
         personService
         .create(newPerson)
-        .then(result =>            
-          {
-           // setPersons(persons.concat(result))
-            console.log('result ',result)
-            const rname = result.name + mAdd
-            console.log('rname ',rname)
-            setNewMessage(rname)
-            console.log('newMsg ',newMessage)
-            setTimeout(() => {
-              setNewMessage(null)
-            }, 5000)
-          } )        
-         // setNewName('')
-        //  setNewNumber('')
- 
+
+        setNewMessage(
+          `Person '${newPerson.name}' was added to phonebook`
+        )
+        setTimeout(() => {
+          setNewMessage(null)
+        }, 5000)
     }
   }
 
-  const delPerson = (id) => {
-    const person = persons.find(x => x.id === id)
-    console.log('delete ', id, person)
-    if( window.confirm(`Do you really want to delete ${person.name}?`)) {         
-
+  const delPerson = (person) => {
+    console.log('delete ', person)
+    const del = window.confirm(`Do you really want to delete ${person.name}?`); 
+    if(del === true){         
       personService
-      .deleete(id)
-      .then(() => 
-        {
-          //window.alert('$person.name is removed from phonebook') 
-          const rname = person.name + mDelete
-          console.log('rname ',rname)
-          setNewMessage(rname)
-          console.log('newMsg ',newMessage)
-          setTimeout(() => {
-            setNewMessage(null)
-          }, 5000)
-          setPersons(persons.filter(x => id !== x.id))
-        })
+      .remove(person.id)
+      setPersons(persons.filter(newp => newp.id !== person.id))
+      setNewMessage(
+        `Person '${person.name}' was removed from phonebook`
+      )
+      setTimeout(() => {
+        setNewMessage(null)
+      }, 5000)
     }     
   }
 
@@ -122,7 +115,7 @@ const App = () => {
       <PersonForm 
         addPerson = {addPerson}
         handleNameChange = {handleNameChange}
-        handeNumberChange = {handleNumberChange}
+        handleNumberChange = {handleNumberChange}
         name = {newName}
         number = {newNumber}
       />
@@ -132,6 +125,7 @@ const App = () => {
         persons = {persons} 
         newFilter ={newFilter}
         delPerson = {delPerson}
+
       />   
     </div>  
   )

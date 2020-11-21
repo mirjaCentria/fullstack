@@ -1,5 +1,6 @@
 import React from 'react';
-//import Person from './Person.js';
+import Person from './Person.js';
+import PersonForm from './PersonForm.js';
 
 const ShowPersons = ({persons, newFilter, delPerson}) => {
     console.log('showbbpersons ', persons)
@@ -7,9 +8,9 @@ const ShowPersons = ({persons, newFilter, delPerson}) => {
       <div>
         {persons.filter(person => 
             (person.name||'').toLowerCase().includes((newFilter||'').toLowerCase())).map(person =>
-              <div>
+              <div key={person.name}>
               {person.name}  {person.number}   
-              <button onClick={() => delPerson(person.id)}>Delete</button>
+              <button onClick={() => delPerson(person)}>Delete</button>
             </div>
             )}     
       </div>  

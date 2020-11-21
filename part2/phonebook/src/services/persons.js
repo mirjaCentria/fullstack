@@ -1,7 +1,8 @@
 import axios from 'axios'
-//const baseUrl = 'https://phonebookmirja.herokuapp.com/App/persons' 
-//const baseUrl = 'http://localhost:3001/App/persons'
-const baseUrl = '/App/persons'
+const baseUrl = 'http://localhost:3001/api/persons'
+//const baseUrl = 'https://phonebookmirja.herokuapp.com/api/persons' 
+//const baseUrl = 'http://localhost:3001/api/persons'
+//const baseUrl = '/api/persons'
 
 
 const getAll = () => {
@@ -20,9 +21,9 @@ const getAll = () => {
     return request.then(response => response.data)
   }
 
-  const deleete = (id) => {
+  const remove = (id) => {
     const request = axios.delete(`${baseUrl}/${id}`)
     return request.then(response => response.data)
   }
 
-export default {   getAll,   create, update, deleete     }
+export default {   getAll,   create, update, remove     }
