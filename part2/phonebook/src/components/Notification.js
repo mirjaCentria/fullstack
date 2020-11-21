@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 const Notification = ({ message }) => {
 
-    if (message === ''||null ) {
-      console.log('return null');
+    if (message === null ) {
       return null
     }
     else return (      
