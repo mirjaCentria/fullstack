@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ShowPersons from './components/ShowPersons.js';
 import PersonForm from './components/PersonForm.js';
 import Filter from './components/Filter.js';
+import Notification from './components/Notification.js';
 import personService from './services/persons'
 import './App.css';
 
@@ -9,9 +10,11 @@ const App = () => {
  
   const [persons, setPersons] = useState([])  
   const [ newName, setNewName ] = useState('')
+  const [ newPerson, setNewPerson ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
   const [ message, setMessage] = useState(null)
+  const [ newMessage, setNewMessage] = useState(null)
 
   useEffect(() => {
     console.log('effect')
@@ -22,13 +25,12 @@ const App = () => {
       })
     },[])
 
-
   const addPerson = (event) => {
     event.preventDefault()  
-    const newPerson = { 
-      name: newName, 
-      number: newNumber,
-      id: persons.length +1,
+
+    const person = {
+      name: {newName},
+      number: {newNumber}
     }
 
     if(persons.some(person => person.name === newName)) 
@@ -37,29 +39,20 @@ const App = () => {
         console.log('button clicked alert', event.target)
     }else
     {
-        setPersons(persons.concat(newPerson))
-        setNewName('')
-        setNewNumber('')        
-
+        console.log('Add', newName)
         personService
         .create(newPerson)
-
-        setMessage(    
-            `Person '${newPerson.name}' was added to phonebook`  
-            )        
-            setTimeout(() => {         
-            setMessage(null)        
-          }, 5000)
+        setPersons(persons.concat(newPerson))
+        setNewName('')
+        setNewNumber('')
+        setNewMessage(
+          `Person '${newPerson.name}' was added to phonebook`
+        )
+        setTimeout(() => {
+          setNewMessage(null)
+        }, 5000)
     }
   }
-
-
-  /* handleDelete = (itemId) => {
-    // Whatever you want to do with that item
-    axios.delete("url", { params: { id: itemId } }).then(response => {
-      console.log(response);
-    });
-     */
 
   const delPerson = (person) => {
     console.log('delete ', person)
@@ -68,12 +61,11 @@ const App = () => {
       personService
       .remove(person.id)
       setPersons(persons.filter(newp => newp.id !== person.id))
-
-      setMessage(    
-        `Person '${person.name}' was removed from phonebook`  
-        )        
-        setTimeout(() => {         
-        setMessage(null)        
+      setNewMessage(
+        `Person '${person.name}' was removed from phonebook`
+      )
+      setTimeout(() => {
+        setNewMessage(null)
       }, 5000)
     }     
   }
@@ -102,16 +94,19 @@ const App = () => {
   }
 
   const handleFilterChange = (event) => {
-    console.log(event.target.value)
+    event.preventDefault()  
+    console.log('filter ',event.target.value)
     setNewFilter(event.target.value)    
   }
 
   return (
     <div>
       <h2>Phonebook</h2>
+      
       <Notification 
-        message = {message}
+        message = {newMessage}
       />
+
       <Filter 
         value={newFilter} 
         handleFilterChange={handleFilterChange} />

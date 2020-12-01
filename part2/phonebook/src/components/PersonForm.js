@@ -7,6 +7,7 @@ const PersonForm = ({addPerson,handleNameChange, handleNumberChange, name, numbe
         <div>
           name:        
           <input   
+              name = 'name'
               value = {name}          
               onChange={handleNameChange}
           />
@@ -14,6 +15,7 @@ const PersonForm = ({addPerson,handleNameChange, handleNumberChange, name, numbe
         <div>
           number: 
           <input 
+              name = 'number'
               value = {number} 
               onChange={handleNumberChange}
           />
