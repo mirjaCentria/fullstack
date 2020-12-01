@@ -3,6 +3,7 @@ import ShowPersons from './components/ShowPersons.js';
 import PersonForm from './components/PersonForm.js';
 import Filter from './components/Filter.js';
 import personService from './services/persons'
+import './App.css';
 
 const App = () => {
  
@@ -10,6 +11,7 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
+  const [ message, setMessage] = useState(null)
 
   useEffect(() => {
     console.log('effect')
@@ -37,10 +39,17 @@ const App = () => {
     {
         setPersons(persons.concat(newPerson))
         setNewName('')
-        setNewNumber('')
+        setNewNumber('')        
 
         personService
         .create(newPerson)
+
+        setMessage(    
+            `Person '${newPerson.name}' was added to phonebook`  
+            )        
+            setTimeout(() => {         
+            setMessage(null)        
+          }, 5000)
     }
   }
 
@@ -60,12 +69,31 @@ const App = () => {
       .remove(person.id)
       setPersons(persons.filter(newp => newp.id !== person.id))
 
+      setMessage(    
+        `Person '${person.name}' was removed from phonebook`  
+        )        
+        setTimeout(() => {         
+        setMessage(null)        
+      }, 5000)
     }     
+  }
+
+  const Notification = ({ message }) => {
+    if (message === null) {
+      return null
+    }
+  
+    return (
+      <div className="error">
+        {message}
+      </div>
+    )
   }
 
   const handleNameChange = (event) => {
     console.log(event.target.value)
     setNewName(event.target.value)
+    
   }
 
   const handleNumberChange = (event) => {
@@ -78,13 +106,12 @@ const App = () => {
     setNewFilter(event.target.value)    
   }
 
-
-  
-
   return (
     <div>
       <h2>Phonebook</h2>
-      
+      <Notification 
+        message = {message}
+      />
       <Filter 
         value={newFilter} 
         handleFilterChange={handleFilterChange} />
