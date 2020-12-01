@@ -14,6 +14,7 @@ const App = (props) => {
     setSelected(randLine())
   } 
 
+
   const newVotes = () =>{        
     anecdotes[selected].vote = newvote
     setVotes(anecdotes)

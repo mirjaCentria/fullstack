@@ -4,21 +4,17 @@ import PersonForm from './components/PersonForm.js';
 import Filter from './components/Filter.js';
 import Notification from './components/Notification.js';
 import personService from './services/persons'
-import './App.css'
+import './App.css';
 
 const App = () => {
  
   const [persons, setPersons] = useState([])  
   const [ newName, setNewName ] = useState('')
+  const [ newPerson, setNewPerson ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
+  const [ message, setMessage] = useState(null)
   const [ newMessage, setNewMessage] = useState(null)
-
-  const newPerson = { 
-    name: newName, 
-    number: newNumber,
-    id: persons.length +1,
-  }
 
   useEffect(() => {
     console.log('effect')
@@ -32,6 +28,11 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault()  
 
+    const person = {
+      name: {newName},
+      number: {newNumber}
+    }
+
     if(persons.some(person => person.name === newName)) 
     {
         window.alert('$newName is already added to phonebook') 
@@ -41,12 +42,11 @@ const App = () => {
     }else
     {
         console.log('Add', newName)
+        personService
+        .create(newPerson)
         setPersons(persons.concat(newPerson))
         setNewName('')
         setNewNumber('')
-        personService
-        .create(newPerson)
-
         setNewMessage(
           `Person '${newPerson.name}' was added to phonebook`
         )
@@ -72,9 +72,22 @@ const App = () => {
     }     
   }
 
+  const Notification = ({ message }) => {
+    if (message === null) {
+      return null
+    }
+  
+    return (
+      <div className="error">
+        {message}
+      </div>
+    )
+  }
+
   const handleNameChange = (event) => {
     console.log(event.target.value)
     setNewName(event.target.value)
+    
   }
 
   const handleNumberChange = (event) => {
