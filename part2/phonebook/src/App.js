@@ -35,7 +35,7 @@ const App = () => {
 
     if(persons.some(person => person.name === newName)) 
     {
-        window.alert('$newName is already added to phonebook') 
+        window.alert(newName + ' is already added to phonebook') 
         console.log('button clicked alert', event.target)
     }else
     {
