@@ -29,32 +29,33 @@ const App = () => {
     event.preventDefault()  
 
     const person = {
-      name: {newName},
-      number: {newNumber}
+      name: newName,
+      number: newNumber
     }
 
     if(persons.some(person => person.name === newName)) 
     {
-        window.alert('$newName is already added to phonebook') 
+        window.alert(newName + ' is already added to phonebook') 
         console.log('button clicked alert', event.target)
         setNewName('')
         setNewNumber('')
     }else
     {
-        console.log('Add', newName)
+        console.log('Add', person.name)
         personService
-        .create(newPerson)
-        setPersons(persons.concat(newPerson))
+        .create(person)
+        .then(response=>{
+        setPersons(persons.concat(response))
         setNewName('')
         setNewNumber('')
         setNewMessage(
-          `Person '${newPerson.name}' was added to phonebook`
+          `Person '${person.name}' was added to phonebook`
         )
         setTimeout(() => {
           setNewMessage(null)
         }, 5000)
-    }
-  }
+    })
+  }}
 
   const delPerson = (person) => {
     console.log('delete ', person)
