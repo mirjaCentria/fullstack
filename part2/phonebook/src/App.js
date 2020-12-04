@@ -30,7 +30,8 @@ const App = () => {
 
     const person = {
       name: newName,
-      number: newNumber
+      number: newNumber,
+      //id: persons.length + 1
     }
 
     if(persons.some(person => person.name === newName)) 
