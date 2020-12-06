@@ -9,14 +9,16 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "'bloglist'"
+    "bloglist"
   ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^5.11.3"
+    "loader": "^2.1.1",
+    "mongoose": "^5.11.4",
+    "nodejs": "0.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"

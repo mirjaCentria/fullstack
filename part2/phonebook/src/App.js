@@ -38,6 +38,8 @@ const App = () => {
     {
         window.alert(newName + ' is already added to phonebook') 
         console.log('button clicked alert', event.target)
+        setNewName('')
+        setNewNumber('')
     }else
     {
         console.log('Add', person.name)
