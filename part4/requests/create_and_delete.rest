@@ -4,7 +4,7 @@ Content-Type: application/json
 {
     "title": "BlaaBlaa",
     "author": "Bertil Bertillson",
-    "url": "http://localhost:3003/api/blogs/BlaaBlaa",
-    "likes": 0
+    "url": "http://localhost:3003/api/bloglist",
+    "likes": "0"
 }
 
