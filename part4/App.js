@@ -24,4 +24,3 @@ app.use(middleware.errorHandler)
 app.use('/api/blogs', blogsRouter)
 
 module.exports = app
-
