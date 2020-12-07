@@ -14,7 +14,6 @@ const testBlogs = [
    
 ]
 
-
 beforeEach(async () => {
     await Blog.deleteMany({})
   
@@ -39,3 +38,4 @@ beforeEach(async () => {
   afterAll(() => {
     mongoose.connection.close()
 })
+
