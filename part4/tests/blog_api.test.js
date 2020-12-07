@@ -6,11 +6,17 @@ const Blog = require('../models/blog')
 
 const testBlogs = [
     {
-        title: 'BlaaBlaa',
-        author: "Bertil Bertelsson",
+        title: 'AaaAaa',
+        author: "Axel Axelsson",
         url: "www.fullstackopen.com",
-        likes: 35
+        likes: 22
     },
+    {
+      title: 'BlaaBlaa',
+      author: "Bertil Bertelsson",
+      url: "www.fullstackopen.com",
+      likes: 35
+  },
    
 ]
 
